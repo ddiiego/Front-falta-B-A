@@ -1,0 +1,59 @@
+:root {
+  --primaria: #3eb2ff;
+  --largura-barra-lateral: 220px;
+  --largura-minima-celula: 90px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.cabecalho-dia {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Utilitários globais de layout e texto */
+.flexivel { display: flex; }
+.direcao-coluna { flex-direction: column; }
+.justificar-centro { justify-content: center; }
+.justificar-entre { justify-content: space-between; }
+.itens-centro { align-items: center; }
+
+.texto-pequeno { font-size: 0.75rem; }
+.numero-dia {
+  color: #1e293b;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.texto-grande { font-size: 1.125rem; }
+.fonte-negrito { font-weight: 700; }
+.texto-centralizado { text-align: center; }
+.texto-cinza-700 { color: #475569; }
+
+/* Margens, Paddings e Bordas globais úteis */
+.mt-1 { margin-top: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mr-1 { margin-right: 0.25rem; }
+.pl-4 { padding-left: 1rem; }
+.borda-b { border-bottom: 1px solid #e2e8f0; }
+
+.borda-cinza-100 { border-color: #f3f4f6; }
+.hover-bg-cinza-100:hover { background-color: #f3f4f6; }
+.cursor-apontador { cursor: pointer; }
+.transicao-cores { transition: background-color 0.2s, color 0.2s; }
+
+.relativo { position: relative; }
+.bloco-inline { display: inline-block; width: 1rem; }

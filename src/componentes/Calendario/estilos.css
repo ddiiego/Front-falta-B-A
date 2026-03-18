@@ -1,0 +1,195 @@
+.container-calendario {
+  min-width: 100%;
+  width: fit-content;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  display: grid;
+}
+
+.celula {
+  border-right: 1px solid #f0f0f0;
+  min-height: 55px; /* Voltando ao tamanho original */
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  position: relative;
+  padding: 2px 0;
+  box-sizing: border-box;
+}
+
+.celula-dia-sala {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.slot-agendamento {
+  flex: 1;
+  width: 100%;
+  min-height: 15px; /* Extremmamente compacto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.celula-cabecalho {
+  position: sticky;
+  top: 66px;
+  background: #f8f9fa;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 12px 0;
+  z-index: 20;
+}
+
+.cabecalho-dia {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.nome-dia {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.numero-dia {
+  color: #334155;
+  font-size: 1.25rem;
+}
+
+.celula-barra-lateral {
+  position: sticky;
+  left: 0;
+  background: white;
+  width: var(--largura-barra-lateral);
+  z-index: 10;
+  justify-content: flex-start;
+  padding-left: 20px;
+  border-right: 2px solid #e2e8f0;
+  box-sizing: border-box;
+}
+
+.celula-cabecalho.celula-barra-lateral {
+  z-index: 25;
+  background: #f8f9fa;
+  color: #64748b;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.linha-andar {
+  grid-column: 1 / -1;
+  background: #f8fafc;
+  padding: 0;
+  font-weight: 700;
+  color: #334155;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 121px; /* 66px (header) + 55px (day header) */
+  z-index: 15;
+}
+
+.rotulo-andar-fixo {
+  position: sticky;
+  padding: 12px 20px;
+  left: 0;
+  width: max-content;
+  z-index: 16;
+}
+
+.linha-sala {
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  background: white;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
+
+.celula-turno {
+  grid-column: 1 / -1;
+  background: #fdfdfd;
+  padding: 0;
+  font-weight: 600;
+  color: #64748b;
+  border-bottom: 1px solid #f1f5f9;
+  position: sticky;
+  left: 0;
+  z-index: 14;
+}
+
+.rotulo-turno-fixo {
+  position: sticky;
+  padding: 8px 20px;
+  left: 0;
+  width: max-content;
+  z-index: 15;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.tarja-agendamento {
+  width: 98%;
+  height: 14px; /* Super compacta */
+  border-radius: 2px;
+  color: white;
+  font-size: 9px; /* Fonte menor para caber */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s, filter 0.1s;
+  z-index: 5;
+  clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+  line-height: 1;
+}
+
+.tarja-agendamento:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+  z-index: 8;
+}
+
+.fundo-azul-escuro { background-color: #1e3a8a; } /* Dark Blue (A,B) */
+.fundo-azul-claro { background-color: #3eb2ff; } /* Light Blue (C,D) */
+.fundo-amba { background-color: #f59e0b; }      /* Amber (E,F) */
+.fundo-azul-400 { background-color: #3eb2ff; }
+.fundo-verde-400 { background-color: #10b981; }
+.fundo-roxo-400 { background-color: #8b5cf6; }
+
+.texto-truncado {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.botao-agendar {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background 0.2s;
+}
+
+.botao-agendar:hover {
+  background: #2563eb;
+}

@@ -1,0 +1,77 @@
+import React, { useRef } from 'react';
+import { Agendamento } from '../../servicos/api';
+
+interface ModalEdicaoProps {
+  agendamento: Agendamento;
+  onFechar: () => void;
+  onSalvar: (dados: Partial<Agendamento>) => void;
+}
+
+export default function ModalEdicao({ agendamento, onFechar, onSalvar }: ModalEdicaoProps) {
+  const dataRef = useRef<HTMLInputElement>(null);
+  const turnoRef = useRef<HTMLSelectElement>(null);
+  const horarioRef = useRef<HTMLSelectElement>(null);
+  const descricaoRef = useRef<HTMLInputElement>(null);
+
+  if (!agendamento) return null;
+
+  const handleSalvar = () => {
+    const atualizado = {
+      data: dataRef.current?.value,
+      turno: turnoRef.current?.value,
+      horario: horarioRef.current?.value,
+      descricao: descricaoRef.current?.value,
+      sala: agendamento.sala
+    };
+    onSalvar(atualizado);
+  };
+
+  return (
+    <div className="modal-fundo">
+      <div className="modal-caixa">
+        <div className="modal-cabecalho">
+          <span>Editar Agendamento</span>
+          <span style={{ cursor: 'pointer' }} onClick={onFechar}>×</span>
+        </div>
+        
+        <div className="formulario-edicao">
+          
+          <div className="form-grupo">
+            <label htmlFor="editData">Data do Agendamento</label>
+            <input type="date" id="editData" ref={dataRef} defaultValue={agendamento.data}/>
+          </div>
+          
+          <div className="flexivel" style={{ gap: '16px' }}>
+            <div className="form-grupo" style={{ flex: 1 }}>
+              <label htmlFor="editTurno">Turno</label>
+              <select id="editTurno" ref={turnoRef} defaultValue={agendamento.turno}>
+                <option>MANHA</option>
+                <option>TARDE</option>
+                <option>NOITE</option>
+              </select>
+            </div>
+            
+            <div className="form-grupo" style={{ flex: 1 }}>
+              <label htmlFor="editHorario">Horário / Bloco</label>
+              <select id="editHorario" ref={horarioRef} defaultValue={agendamento.horario}>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+                <option>E</option>
+                <option>F</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="form-grupo">
+            <label htmlFor="editDescricao">Descrição ou Assunto Formativo</label>
+            <input id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"/>
+          </div>
+          
+          <button onClick={handleSalvar}>Salvar Alterações</button>
+        </div>
+      </div>
+    </div>
+  );
+}

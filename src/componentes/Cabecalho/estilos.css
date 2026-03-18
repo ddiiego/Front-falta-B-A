@@ -1,0 +1,121 @@
+.cabecalho-principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 30px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.cabecalho-principal h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.controle-mes {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.botao-seta {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #64748b;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.botao-seta:hover {
+  color: #3b82f6;
+}
+
+.seletor-mes-container {
+  position: relative;
+}
+
+.mes-atual {
+  font-weight: 700;
+  margin: 0 20px;
+  color: #334155;
+  font-size: 1.1rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.hover-opacidade:hover {
+  background: #f1f5f9;
+}
+
+.menu-meses {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 8px;
+  padding: 8px;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: 300px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.item-mes {
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.item-mes:hover {
+  background: #eff6ff;
+  color: #3b82f6;
+}
+
+.item-mes.ativo {
+  background: #3b82f6;
+  color: white;
+}
+
+.botao-header-agendar {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  font-size: 0.9rem;
+}
+
+.botao-header-agendar:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.botao-header-agendar:active {
+  transform: translateY(0);
+}
