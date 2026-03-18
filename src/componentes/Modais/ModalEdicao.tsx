@@ -11,7 +11,7 @@ export default function ModalEdicao({ agendamento, onFechar, onSalvar }: ModalEd
   const dataRef = useRef<HTMLInputElement>(null);
   const turnoRef = useRef<HTMLSelectElement>(null);
   const horarioRef = useRef<HTMLSelectElement>(null);
-  const descricaoRef = useRef<HTMLInputElement>(null);
+  const descricaoRef = useRef<HTMLTextAreaElement>(null);
 
   if (!agendamento) return null;
 
@@ -66,7 +66,8 @@ export default function ModalEdicao({ agendamento, onFechar, onSalvar }: ModalEd
           
           <div className="form-grupo">
             <label htmlFor="editDescricao">Descrição ou Assunto Formativo</label>
-            <input id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"/>
+            {/*<input id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"/> */}
+            <textarea className="textarea-editor" id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"></textarea>
           </div>
           
           <button onClick={handleSalvar}>Salvar Alterações</button>

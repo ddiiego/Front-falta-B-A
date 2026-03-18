@@ -1,6 +1,6 @@
 :root {
   --primaria: #3eb2ff;
-  --largura-barra-lateral: 220px;
+  --largura-barra-lateral: 150px;
   --largura-minima-celula: 90px;
 }
 
@@ -28,9 +28,12 @@ button {
 /* Utilitários globais de layout e texto */
 .flexivel { display: flex; }
 .direcao-coluna { flex-direction: column; }
+.direcao-coluna1 { align-items: start; }
 .justificar-centro { justify-content: center; }
 .justificar-entre { justify-content: space-between; }
+.justificar-entre2 { justify-content: flex-startS; gap: 50px; padding-left: 35px; color: #475569;}
 .itens-centro { align-items: center; }
+.itens-acima { align-items: start; }
 
 .texto-pequeno { font-size: 0.75rem; }
 .numero-dia {
@@ -42,13 +45,17 @@ button {
 .fonte-negrito { font-weight: 700; }
 .texto-centralizado { text-align: center; }
 .texto-cinza-700 { color: #475569; }
+.bold-1 { color: #333;}
+
 
 /* Margens, Paddings e Bordas globais úteis */
 .mt-1 { margin-top: 0.25rem; }
 .mb-2 { margin-bottom: 0.5rem; }
 .mr-1 { margin-right: 0.25rem; }
 .pl-4 { padding-left: 1rem; }
+.pl-3 { padding-left: 2rem; }
 .borda-b { border-bottom: 1px solid #e2e8f0; }
+.fonte { font-size: 20px;}
 
 .borda-cinza-100 { border-color: #f3f4f6; }
 .hover-bg-cinza-100:hover { background-color: #f3f4f6; }

@@ -75,7 +75,9 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
       className="container-calendario"
       style={{ gridTemplateColumns: `var(--largura-barra-lateral) repeat(${diasNoMes}, minmax(var(--largura-minima-celula),1fr))` }}
     >
-      <div className="celula celula-cabecalho celula-barra-lateral">Andares / Turnos / Salas</div>
+      <div className="celula celula-cabecalho celula-barra-lateral flexivel itens-centro ">
+        <img src="https://lit.unichristus.edu.br/sso/resources/voul1/login/lit/img/universidade-christus.png" alt="#"  style={{ width: "50px", height: "35px" }}/>
+      </div>
 
       {Array.from({ length: diasNoMes }).map((_, i) => {
         const d = new Date(ano, mes, i + 1);
@@ -113,7 +115,7 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
                   className="celula-turno curso-apontador hover-bg-cinza-50 transicao-cores"
                   onClick={() => toggleTurno(andar, turno)}
                 >
-                  <div className="rotulo-turno-fixo pl-4">
+                  <div className="rotulo-turno-fixo pl-4 cursor-apontador">
                     <span className="bloco-inline l-4 texto-centralizado mr-1 texto-cinza-500">
                       {isTurnoExpandido ? '▼' : '▶'}
                     </span>
@@ -123,7 +125,7 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
 
                 {isTurnoExpandido && salas.map((sala, salaIdx) => (
                   <React.Fragment key={`${andar}-${turno}-${salaIdx}`}>
-                    <div className="celula celula-barra-lateral linha-sala texto-cinza-700 pl-8 borda-b">
+                    <div className="celula celula-barra-lateral linha-sala fonte texto-cinza-700 pl-3 borda-b flexivel justificar-centro">
                       {sala.descricao}
                     </div>
 

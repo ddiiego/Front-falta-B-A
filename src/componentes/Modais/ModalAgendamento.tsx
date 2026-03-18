@@ -11,7 +11,7 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
   const dataRef = useRef<HTMLInputElement>(null);
   const turnoRef = useRef<HTMLSelectElement>(null);
   const horarioRef = useRef<HTMLSelectElement>(null);
-  const descricaoRef = useRef<HTMLInputElement>(null);
+  const descricaoRef = useRef<HTMLTextAreaElement>(null);
   const [salaBusca, setSalaBusca] = useState('');
 
   const handleSalvar = () => {
@@ -49,14 +49,14 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
         <div className="formulario-edicao">
           
           <div className="form-grupo">
-            <label htmlFor="salaSelect">Sala (Digite o número/descrição)</label>
+            <label htmlFor="salaSelect">Sala (Digite o número)</label>
             <input 
               type="text" 
               id="salaSelect" 
               list="listaSalas" 
               value={salaBusca}
               onChange={(e) => setSalaBusca(e.target.value)}
-              placeholder="Ex: Sala 101"
+              placeholder="Ex: 201"
             />
             <datalist id="listaSalas">
               {salas.map(s => (
@@ -94,8 +94,9 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
           </div>
           
           <div className="form-grupo">
-            <label htmlFor="newDescricao">Descrição ou Assunto Formativo</label>
-            <input id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"/>
+            <label htmlFor="newDescricao">Descrição ou Assunto</label>
+            {/*<input id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"/>*/}
+            <textarea className="textarea-editor" id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"></textarea>
           </div>
           
           <button onClick={handleSalvar}>Salvar Agendamento</button>

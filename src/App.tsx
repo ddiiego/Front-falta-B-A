@@ -207,8 +207,8 @@ export default function App() {
         >
           <div className="balao-cabecalho fundo-azul-400">
             <div className="flexivel justificar-entre itens-centro">
-              <span>{agendamentoBalao.descricao} - Confirmado</span>
-              <span className="balao-fechar" onClick={fecharPopoverImediato}>×</span>
+              <span>{agendamentoBalao.descricao}</span>
+              {/*<span className="balao-fechar" onClick={fecharPopoverImediato}>x</span>*/}
             </div>
 
           </div>
