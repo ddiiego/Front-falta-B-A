@@ -14,7 +14,7 @@ export interface Agendamento {
   sala: Sala;
 }
 
-const API_URL = "http://localhost:8080/agendamento";
+const API_URL = "/api/agendamento";
 
 export const api = {
   buscarAgendamentos: async (): Promise<Agendamento[]> => {
@@ -24,7 +24,7 @@ export const api = {
   },
 
   buscarSalas: async (): Promise<Sala[]> => {
-    const res = await fetch("http://localhost:8080/sala");
+    const res = await fetch("/api/sala");
     if (!res.ok) throw new Error("Erro ao buscar salas");
     return res.json();
   },

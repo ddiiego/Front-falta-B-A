@@ -3,6 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-width: fit-content;
   z-index: 100;
   display: flex;
   justify-content: space-between;
@@ -10,7 +11,7 @@
   background: white;
   padding: 15px 30px;
   border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  /*box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);*/
   box-sizing: border-box;
 }
 
@@ -78,6 +79,32 @@
   gap: 4px;
   width: 300px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.menu-meses-cabecalho {
+  grid-column: span 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px 8px 8px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.botao-fechar-menu {
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #94a3b8;
+  transition: color 0.2s;
+  padding: 0 4px;
+}
+
+.botao-fechar-menu:hover {
+  color: #ef4444;
 }
 
 .item-mes {

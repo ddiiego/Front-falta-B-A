@@ -35,6 +35,10 @@ export default function Cabecalho({ mes, ano, onMudarMes, onIrParaMes, onAbrirAg
           
           {menuAberto && (
             <div className="menu-meses shadow-lg">
+              <div className="menu-meses-cabecalho">
+                <span>Selecionar Mês</span>
+                <span className="botao-fechar-menu" onClick={() => setMenuAberto(false)}>×</span>
+              </div>
               {nomesMes.map((nome, index) => (
                 <div 
                   key={nome} 

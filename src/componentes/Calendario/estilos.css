@@ -38,7 +38,7 @@
 
 .celula-cabecalho {
   position: sticky;
-  top: 66px;
+  top: var(--altura-cabecalho);
   background: #f8f9fa;
   border-bottom: 2px solid #e2e8f0;
   padding: 12px 0;
@@ -93,7 +93,7 @@
   color: #334155;
   border-bottom: 1px solid #e2e8f0;
   position: sticky;
-  top: 121px; /* 66px (header) + 55px (day header) */
+  top: calc(var(--altura-cabecalho) + var(--altura-celula-cabecalho)); /* header + day header */
   z-index: 15;
 }
 

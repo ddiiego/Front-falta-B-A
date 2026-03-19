@@ -15,7 +15,7 @@ interface CalendarioProps {
 
 export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverIn, onAgendamentoHoverOut, onClickAgendamento }: CalendarioProps) {
   const diasNoMes = obterDiasNoMes(ano, mes);
-  
+
   // Estrutura: Andar -> Turno -> Salas[]
   const agrupamento: Record<string, Record<string, Sala[]>> = {
     "9º ANDAR": { "MANHA": [], "TARDE": [], "NOITE": [] },
@@ -53,7 +53,7 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
     if (!a.sala || !a.sala.andar) return;
     const andarKey = a.sala.andar.includes("9") ? "9º ANDAR" : "10º ANDAR";
     const turnoKey = a.turno;
-    
+
     if (agrupamento[andarKey] && agrupamento[andarKey][turnoKey]) {
       if (!agrupamento[andarKey][turnoKey].some(s => s.descricao === a.sala.descricao)) {
         agrupamento[andarKey][turnoKey].push(a.sala);
@@ -76,7 +76,7 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
       style={{ gridTemplateColumns: `var(--largura-barra-lateral) repeat(${diasNoMes}, minmax(var(--largura-minima-celula),1fr))` }}
     >
       <div className="celula celula-cabecalho celula-barra-lateral flexivel itens-centro ">
-        <img src="https://lit.unichristus.edu.br/sso/resources/voul1/login/lit/img/universidade-christus.png" alt="#"  style={{ width: "50px", height: "35px" }}/>
+        <img src="https://lit.unichristus.edu.br/sso/resources/voul1/login/lit/img/universidade-christus.png" alt="#" style={{ width: "50px", height: "35px" }} />
       </div>
 
       {Array.from({ length: diasNoMes }).map((_, i) => {
@@ -108,10 +108,10 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
           {andaresExpandidos[andar] && Object.keys(agrupamento[andar]).map((turno) => {
             const salas = agrupamento[andar][turno];
             const isTurnoExpandido = turnosExpandidos[`${andar}-${turno}`];
-            
+
             return (
               <React.Fragment key={`${andar}-${turno}`}>
-                <div 
+                <div
                   className="celula-turno curso-apontador hover-bg-cinza-50 transicao-cores"
                   onClick={() => toggleTurno(andar, turno)}
                 >
@@ -148,6 +148,7 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
                                 onClick={() => onClickAgendamento(agTopo)}
                               >
                                 <span className="texto-truncado">({agTopo.horario}) {agTopo.descricao}</span>
+
                               </div>
                             )}
                           </div>

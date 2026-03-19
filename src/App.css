@@ -1,6 +1,5 @@
 .container-aplicativo {
-  padding: 100px 10px 10px 10px;
-  /* 66px top padding for fixed header */
+  padding: calc(var(--altura-cabecalho) + 33px) 10px 10px 10px;
   min-width: 100%;
   width: fit-content;
   box-sizing: border-box;
@@ -287,7 +286,7 @@
   gap: 12px;
 }
 
-.botao-editar{
+.botao-editar {
   background: var(--primaria);
   color: white;
   padding: 10px 20px;
@@ -296,7 +295,8 @@
   font-size: 14px;
   transition: background 0.2s;
 }
-.botao-editar:hover{
+
+.botao-editar:hover {
   background: #2563eb;
 }
 

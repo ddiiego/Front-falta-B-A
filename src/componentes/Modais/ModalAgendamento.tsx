@@ -15,10 +15,16 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
   const [salaBusca, setSalaBusca] = useState('');
 
   const handleSalvar = () => {
-    const salaSelecionada = salas.find(s => s.descricao === salaBusca);
+    const busca = salaBusca.trim().toLowerCase();
+    // Busca flexível: tenta bater o nome exato ou parte dele (ex: "911" baterá em "SALA 911")
+    const salaSelecionada = salas.find(s => {
+      const desc = s.descricao.toLowerCase();
+      return desc === busca || desc.includes(busca);
+    });
     
     if (!salaSelecionada) {
-      alert("Por favor, selecione uma sala válida!");
+      console.warn("Salas disponíveis:", salas.map(s => s.descricao));
+      alert(`Sala "${salaBusca}" não encontrada. Verifique se o número está correto!`);
       return;
     }
 
@@ -29,12 +35,12 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
       descricao: descricaoRef.current?.value || '',
       sala: salaSelecionada
     };
-    
+
     if (!novosDados.data || !novosDados.descricao) {
       alert("Preencha todos os campos!");
       return;
     }
-    
+
     onSalvar(novosDados);
   };
 
@@ -45,15 +51,15 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
           <span>Criar Agendamento</span>
           <span style={{ cursor: 'pointer' }} onClick={onFechar}>×</span>
         </div>
-        
+
         <div className="formulario-edicao">
-          
+
           <div className="form-grupo">
             <label htmlFor="salaSelect">Sala (Digite o número)</label>
-            <input 
-              type="text" 
-              id="salaSelect" 
-              list="listaSalas" 
+            <input
+              type="text"
+              id="salaSelect"
+              list="listaSalas"
               value={salaBusca}
               onChange={(e) => setSalaBusca(e.target.value)}
               placeholder="Ex: 201"
@@ -67,9 +73,9 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
 
           <div className="form-grupo">
             <label htmlFor="newData">Data do Agendamento</label>
-            <input type="date" id="newData" ref={dataRef} defaultValue={new Date().toISOString().split('T')[0]}/>
+            <input type="date" id="newData" ref={dataRef} defaultValue={new Date().toISOString().split('T')[0]} />
           </div>
-          
+
           <div className="flexivel" style={{ gap: '16px' }}>
             <div className="form-grupo" style={{ flex: 1 }}>
               <label htmlFor="newTurno">Turno</label>
@@ -79,7 +85,7 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
                 <option>NOITE</option>
               </select>
             </div>
-            
+
             <div className="form-grupo" style={{ flex: 1 }}>
               <label htmlFor="newHorario">Horário / Bloco</label>
               <select id="newHorario" ref={horarioRef}>
@@ -92,13 +98,13 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
               </select>
             </div>
           </div>
-          
+
           <div className="form-grupo">
             <label htmlFor="newDescricao">Descrição ou Assunto</label>
             {/*<input id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"/>*/}
             <textarea className="textarea-editor" id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"></textarea>
           </div>
-          
+
           <button onClick={handleSalvar}>Salvar Agendamento</button>
         </div>
       </div>

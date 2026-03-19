@@ -29,15 +29,37 @@ export default function App() {
 
   useEffect(() => {
     carregarAgendamentos();
-    carregarSalas();
   }, []);
+
+  useEffect(() => {
+    if (salas.length === 0) {
+      carregarSalas();
+    }
+  }, [agendamentos]);
 
   const carregarSalas = async () => {
     try {
       const data = await api.buscarSalas();
-      setSalas(data);
+      console.log("Salas retornadas pela API:", data);
+      
+      if (data && data.length > 0) {
+        setSalas(data);
+      } else {
+        // Fallback: Tenta descobrir salas pelos agendamentos ja carregados
+        const salasUnicas: Sala[] = [];
+        agendamentos.forEach(a => {
+          if (a.sala && !salasUnicas.some(s => s.id === a.sala.id)) {
+            salasUnicas.push(a.sala);
+          }
+        });
+        
+        if (salasUnicas.length > 0) {
+          console.log("Fallback: Usando salas encontradas nos agendamentos:", salasUnicas);
+          setSalas(salasUnicas);
+        }
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao carregar salas:", error);
     }
   };
 
@@ -97,6 +119,27 @@ export default function App() {
 
   const handleSalvarEdicao = async (dadosAtualizados: Partial<Agendamento>) => {
     if (!agendamentoAtual) return;
+
+    // Validação de conflito
+    const dataCheck = dadosAtualizados.data || agendamentoAtual.data;
+    const turnoCheck = dadosAtualizados.turno || agendamentoAtual.turno;
+    const horarioCheck = dadosAtualizados.horario || agendamentoAtual.horario;
+    const salaIdCheck = String(dadosAtualizados.sala?.id || agendamentoAtual.sala.id);
+    const idAtual = String(agendamentoAtual.id);
+
+    const conflito = agendamentos.some(a => 
+      String(a.id) !== idAtual &&
+      a.data === dataCheck &&
+      a.turno === turnoCheck &&
+      a.horario === horarioCheck &&
+      String(a.sala.id) === salaIdCheck
+    );
+
+    if (conflito) {
+      alert("Já existe um agendamento para esta sala nesse horário!");
+      return;
+    }
+
     try {
       await api.atualizarAgendamento(agendamentoAtual.id, dadosAtualizados);
       fecharModalEdicao();
@@ -113,6 +156,19 @@ export default function App() {
   };
 
   const handleCriarAgendamento = async (dados: Omit<Agendamento, "id">) => {
+    // Validação de conflito
+    const conflito = agendamentos.some(a => 
+      a.data === dados.data &&
+      a.turno === dados.turno &&
+      a.horario === dados.horario &&
+      String(a.sala.id) === String(dados.sala.id)
+    );
+
+    if (conflito) {
+      alert("Já existe um agendamento para esta sala nesse horário!");
+      return;
+    }
+
     try {
       await api.criarAgendamento(dados);
       setModalAgendar(false);
@@ -130,7 +186,8 @@ export default function App() {
     setAgendamentoBalao(ag);
 
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    const ALTURA_MEDIDA_POPOVER = 280;
+    // const ALTURA_MEDIDA_POPOVER = 280; // Antigo: o balão cortava quando abria para cima
+    const ALTURA_MEDIDA_POPOVER = 400; // Novo: valor maior para garantir que ele mude para baixo se não houver espaço
     const LARGURA_POPOVER = 380;
     const MARGEM_SEGURANCA = 20;
 
@@ -257,13 +314,14 @@ export default function App() {
       {modalEditar && agendamentoAtual && (
         <ModalEdicao
           agendamento={agendamentoAtual}
+          salas={salas}
           onFechar={fecharModalEdicao}
           onSalvar={handleSalvarEdicao}
         />
       )}
 
       {modalAgendar && (
-        <ModalAgendamento 
+        <ModalAgendamento
           salas={salas}
           onFechar={() => setModalAgendar(false)}
           onSalvar={handleCriarAgendamento}

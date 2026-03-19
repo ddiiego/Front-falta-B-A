@@ -1,27 +1,40 @@
 import React, { useRef } from 'react';
-import { Agendamento } from '../../servicos/api';
+import { Agendamento, Sala } from '../../servicos/api';
 
 interface ModalEdicaoProps {
   agendamento: Agendamento;
+  salas: Sala[];
   onFechar: () => void;
   onSalvar: (dados: Partial<Agendamento>) => void;
 }
 
-export default function ModalEdicao({ agendamento, onFechar, onSalvar }: ModalEdicaoProps) {
+export default function ModalEdicao({ agendamento, salas, onFechar, onSalvar }: ModalEdicaoProps) {
   const dataRef = useRef<HTMLInputElement>(null);
   const turnoRef = useRef<HTMLSelectElement>(null);
   const horarioRef = useRef<HTMLSelectElement>(null);
   const descricaoRef = useRef<HTMLTextAreaElement>(null);
+  const [salaBusca, setSalaBusca] = React.useState(agendamento.sala.descricao);
 
   if (!agendamento) return null;
 
   const handleSalvar = () => {
+    const busca = salaBusca.trim().toLowerCase();
+    const salaSelecionada = salas.find(s => {
+      const desc = s.descricao.toLowerCase();
+      return desc === busca || desc.includes(busca);
+    });
+
+    if (!salaSelecionada) {
+      alert(`Sala "${salaBusca}" não encontrada. Verifique se o número está correto!`);
+      return;
+    }
+
     const atualizado = {
       data: dataRef.current?.value,
       turno: turnoRef.current?.value,
       horario: horarioRef.current?.value,
       descricao: descricaoRef.current?.value,
-      sala: agendamento.sala
+      sala: salaSelecionada
     };
     onSalvar(atualizado);
   };
@@ -35,6 +48,23 @@ export default function ModalEdicao({ agendamento, onFechar, onSalvar }: ModalEd
         </div>
         
         <div className="formulario-edicao">
+
+          <div className="form-grupo">
+            <label htmlFor="editSala">Sala (Digite o número)</label>
+            <input
+              type="text"
+              id="editSala"
+              list="listaSalasEdit"
+              value={salaBusca}
+              onChange={(e) => setSalaBusca(e.target.value)}
+              placeholder="Ex: 201"
+            />
+            <datalist id="listaSalasEdit">
+              {salas.map(s => (
+                <option key={s.id} value={s.descricao} />
+              ))}
+            </datalist>
+          </div>
           
           <div className="form-grupo">
             <label htmlFor="editData">Data do Agendamento</label>
