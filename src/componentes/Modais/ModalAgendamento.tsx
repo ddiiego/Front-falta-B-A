@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { Agendamento, Sala } from '../../servicos/api';
+import { Agendamento, Sala } from '../../tipos';
+import './Base.css';
+import './ModalAgendamento.css';
 
 interface ModalAgendamentoProps {
   salas: Sala[];
@@ -16,14 +18,12 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
 
   const handleSalvar = () => {
     const busca = salaBusca.trim().toLowerCase();
-    // Busca flexível: tenta bater o nome exato ou parte dele (ex: "911" baterá em "SALA 911")
     const salaSelecionada = salas.find(s => {
       const desc = s.descricao.toLowerCase();
       return desc === busca || desc.includes(busca);
     });
     
     if (!salaSelecionada) {
-      console.warn("Salas disponíveis:", salas.map(s => s.descricao));
       alert(`Sala "${salaBusca}" não encontrada. Verifique se o número está correto!`);
       return;
     }
@@ -53,7 +53,6 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
         </div>
 
         <div className="formulario-edicao">
-
           <div className="form-grupo">
             <label htmlFor="salaSelect">Sala (Digite o número)</label>
             <input
@@ -101,7 +100,6 @@ export default function ModalAgendamento({ salas, onFechar, onSalvar }: ModalAge
 
           <div className="form-grupo">
             <label htmlFor="newDescricao">Descrição ou Assunto</label>
-            {/*<input id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"/>*/}
             <textarea className="textarea-editor" id="newDescricao" ref={descricaoRef} placeholder="Ex: Aula Prática de Laboratório"></textarea>
           </div>
 

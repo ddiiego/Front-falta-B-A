@@ -2,8 +2,8 @@
   --primaria: #3eb2ff;
   --largura-barra-lateral: 150px;
   --largura-minima-celula: 90px;
-  --altura-cabecalho: 67px; /* altura real do cabecalho principal fixo */
-  --altura-celula-cabecalho: 55px; /* altura do header de datas do calendario */
+  --altura-cabecalho: 67px;
+  --altura-celula-cabecalho: 55px;
 }
 
 html, body {
@@ -36,13 +36,12 @@ button {
   gap: 2px;
 }
 
-/* Utilitários globais de layout e texto */
 .flexivel { display: flex; }
 .direcao-coluna { flex-direction: column; }
 .direcao-coluna1 { align-items: start; }
 .justificar-centro { justify-content: center; }
 .justificar-entre { justify-content: space-between; }
-.justificar-entre2 { justify-content: flex-startS; gap: 50px; padding-left: 35px; color: #475569;}
+.justificar-entre2 { justify-content: flex-start; gap: 50px; padding-left: 35px; color: #475569;}
 .itens-centro { align-items: center; }
 .itens-acima { align-items: start; }
 
@@ -58,8 +57,6 @@ button {
 .texto-cinza-700 { color: #475569; }
 .bold-1 { color: #333;}
 
-
-/* Margens, Paddings e Bordas globais úteis */
 .mt-1 { margin-top: 0.25rem; }
 .mb-2 { margin-bottom: 0.5rem; }
 .mr-1 { margin-right: 0.25rem; }

@@ -1,18 +1,6 @@
-export interface Sala {
-  id: string;
-  descricao: string;
-  andar: string;
-  capacidade: number;
-}
+import { Sala, Agendamento } from "../tipos";
 
-export interface Agendamento {
-  id: string;
-  data: string;
-  turno: string;
-  horario: string;
-  descricao: string;
-  sala: Sala;
-}
+export type { Sala, Agendamento };
 
 const API_URL = "/api/agendamento";
 

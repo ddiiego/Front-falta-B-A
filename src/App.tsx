@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { api, Agendamento, Sala } from "./servicos/api";
-import "./App.css"; // Estilos específicos do App e seus modais
+import { api } from "./servicos/api";
+import { Agendamento, Sala } from "./tipos";
+import "./App.css";
 
 import Cabecalho from "./componentes/Cabecalho";
 import Calendario from "./componentes/Calendario";
-// O Modais/ModalEdicao e Modais/ModalDetalhes serão substituídos pelo comportamento do Popover em breve.
-// Manteremos as importações antigas até a próxima etapa ou adaptaremos agora.
+import Popover from "./componentes/Popover";
 import ModalDetalhes from "./componentes/Modais/ModalDetalhes";
 import ModalEdicao from "./componentes/Modais/ModalEdicao";
 import ModalAgendamento from "./componentes/Modais/ModalAgendamento";
@@ -22,7 +22,6 @@ export default function App() {
   const [modalEditar, setModalEditar] = useState<boolean>(false);
   const [modalAgendar, setModalAgendar] = useState<boolean>(false);
 
-  // Estados para controlar o popover customizado (estilo Gantt)
   const [agendamentoBalao, setAgendamentoBalao] = useState<Agendamento | null>(null);
   const [posicaoBalao, setPosicaoBalao] = useState<{ x: number, y: number, arrowX: number, position: 'top' | 'bottom' }>({ x: 0, y: 0, arrowX: 190, position: 'top' });
   const referenciaTempo = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -40,12 +39,10 @@ export default function App() {
   const carregarSalas = async () => {
     try {
       const data = await api.buscarSalas();
-      console.log("Salas retornadas pela API:", data);
       
       if (data && data.length > 0) {
         setSalas(data);
       } else {
-        // Fallback: Tenta descobrir salas pelos agendamentos ja carregados
         const salasUnicas: Sala[] = [];
         agendamentos.forEach(a => {
           if (a.sala && !salasUnicas.some(s => s.id === a.sala.id)) {
@@ -54,12 +51,11 @@ export default function App() {
         });
         
         if (salasUnicas.length > 0) {
-          console.log("Fallback: Usando salas encontradas nos agendamentos:", salasUnicas);
           setSalas(salasUnicas);
         }
       }
     } catch (error) {
-      console.error("Erro ao carregar salas:", error);
+      console.error(error);
     }
   };
 
@@ -85,7 +81,6 @@ export default function App() {
     setMes(novoMes);
   };
 
-  // Funções legadas (para os modais originais)
   const abrirModalDetalhes = (agendamento: Agendamento) => {
     setAgendamentoAtual(agendamento);
     setModal(true);
@@ -120,7 +115,6 @@ export default function App() {
   const handleSalvarEdicao = async (dadosAtualizados: Partial<Agendamento>) => {
     if (!agendamentoAtual) return;
 
-    // Validação de conflito
     const dataCheck = dadosAtualizados.data || agendamentoAtual.data;
     const turnoCheck = dadosAtualizados.turno || agendamentoAtual.turno;
     const horarioCheck = dadosAtualizados.horario || agendamentoAtual.horario;
@@ -156,7 +150,6 @@ export default function App() {
   };
 
   const handleCriarAgendamento = async (dados: Omit<Agendamento, "id">) => {
-    // Validação de conflito
     const conflito = agendamentos.some(a => 
       a.data === dados.data &&
       a.turno === dados.turno &&
@@ -178,7 +171,6 @@ export default function App() {
     }
   };
 
-  // --------------- Lógica do Hover Popover ----------------
   const handleAgendamentoHoverIn = (ag: Agendamento, e: React.MouseEvent) => {
     if (referenciaTempo.current) clearTimeout(referenciaTempo.current);
 
@@ -186,13 +178,10 @@ export default function App() {
     setAgendamentoBalao(ag);
 
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-    // const ALTURA_MEDIDA_POPOVER = 280; // Antigo: o balão cortava quando abria para cima
-    const ALTURA_MEDIDA_POPOVER = 400; // Novo: valor maior para garantir que ele mude para baixo se não houver espaço
+    const ALTURA_MEDIDA_POPOVER = 400;
     const LARGURA_POPOVER = 380;
     const MARGEM_SEGURANCA = 20;
 
-    // Se a distância até o topo da tela for menor que o tamanho do popover,
-    // significa que ele vai ser cortado pra cima. Vamos inverter!
     const isTopCutOff = rect.top - ALTURA_MEDIDA_POPOVER < MARGEM_SEGURANCA;
 
     let popoverX = rect.left + rect.width / 2 - LARGURA_POPOVER / 2;
@@ -203,7 +192,6 @@ export default function App() {
       popoverX = window.innerWidth - LARGURA_POPOVER - MARGEM_SEGURANCA;
     }
 
-    // Calcula a posição da setinha relativa ao popover
     const arrowX = (rect.left + rect.width / 2) - popoverX;
 
     setPosicaoBalao({
@@ -215,19 +203,16 @@ export default function App() {
   };
 
   const handleAgendamentoHoverOut = () => {
-    // Dá um tempo de 300ms para a pessoa mover o mouse até o popover
     referenciaTempo.current = setTimeout(() => {
       fecharPopoverImediato();
     }, 300);
   };
 
   const handlePopoverEnter = () => {
-    // Se o mouse entrou no popover, cancela o fechamento
     if (referenciaTempo.current) clearTimeout(referenciaTempo.current);
   };
 
   const handlePopoverLeave = () => {
-    // Se saiu do popover, conta o tempo de fechamento
     referenciaTempo.current = setTimeout(() => {
       fecharPopoverImediato();
     }, 300);
@@ -236,7 +221,6 @@ export default function App() {
   const fecharPopoverImediato = () => {
     setAgendamentoBalao(null);
   };
-  // --------------------------------------------------------
 
   return (
     <div className="container-aplicativo">
@@ -253,57 +237,18 @@ export default function App() {
         />
       </div>
 
-      {/* NOVO POPOVER FLUTUANTE */}
       {agendamentoBalao && (
-        <div
-          className={`balao-flutuante balao-${posicaoBalao.position === 'top' ? 'cima' : 'baixo'}`}
-          style={{
-            left: `${posicaoBalao.x}px`,
-            top: `${posicaoBalao.y}px`
-          }}
+        <Popover
+          agendamento={agendamentoBalao}
+          posicao={posicaoBalao}
           onMouseEnter={handlePopoverEnter}
           onMouseLeave={handlePopoverLeave}
-        >
-          <div className="balao-cabecalho fundo-azul-400">
-            <div className="flexivel justificar-entre itens-centro">
-              <span>{agendamentoBalao.descricao}</span>
-              {/*<span className="balao-fechar" onClick={fecharPopoverImediato}>x</span>*/}
-            </div>
-
-          </div>
-
-          <div className="balao-corpo flexivel">
-            <div className="balao-info">
-              <div className="grupo-info">
-                <label>Data</label>
-                <div>{agendamentoBalao.data}</div>
-              </div>
-              <div className="grupo-info">
-                <label>Horário / Turno</label>
-                <div>{agendamentoBalao.horario} - {agendamentoBalao.turno}</div>
-              </div>
-              <div className="grupo-info">
-                <label>Andar/ Sala / Capacidade</label>
-                <div>{agendamentoBalao.sala?.andar} {agendamentoBalao.sala?.descricao} ({agendamentoBalao.sala?.capacidade} lugares)</div>
-              </div>
-            </div>
-            <div className="balao-acoes">
-              <div className="abas borda-b mb-2">
-                <span className="aba ativa">Ações</span>
-              </div>
-              <button className="link-acao" onClick={() => { fecharPopoverImediato(); abrirModalEdicao(); }}>{'>'} Editar</button>
-              <button className="link-acao" onClick={() => { if (agendamentoBalao) abrirModalDetalhes(agendamentoBalao); fecharPopoverImediato(); }}>{'>'} Ver Detalhes</button>
-              <button className="link-acao texto-vermelho-500" onClick={() => handleExcluir(agendamentoBalao.id)}>{'>'} Cancelar</button>
-            </div>
-          </div>
-          <div
-            className={`seta-${posicaoBalao.position === 'top' ? 'cima' : 'baixo'}`}
-            style={{ left: `${posicaoBalao.arrowX}px` }}
-          ></div>
-        </div>
+          onEditar={() => { fecharPopoverImediato(); abrirModalEdicao(); }}
+          onVerDetalhes={() => { if (agendamentoBalao) abrirModalDetalhes(agendamentoBalao); fecharPopoverImediato(); }}
+          onCancelar={(id) => handleExcluir(id)}
+        />
       )}
 
-      {/* Modais Antigos/Backups (ainda utilizados acionados via Popover) */}
       {modal && agendamentoAtual && !modalEditar && (
         <ModalDetalhes
           agendamento={agendamentoAtual}

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { diasSemana, obterDiasNoMes, encontrarAgendamentos } from '../../utilitarios/data';
-import { Agendamento, Sala } from '../../servicos/api';
-import './estilos.css'; // Estilos reescritos
-import ModalDetalhes from '../Modais/ModalDetalhes';
+import { Agendamento, Sala } from '../../tipos';
+import './estilos.css';
 
 interface CalendarioProps {
   ano: number;
@@ -16,7 +15,6 @@ interface CalendarioProps {
 export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverIn, onAgendamentoHoverOut, onClickAgendamento }: CalendarioProps) {
   const diasNoMes = obterDiasNoMes(ano, mes);
 
-  // Estrutura: Andar -> Turno -> Salas[]
   const agrupamento: Record<string, Record<string, Sala[]>> = {
     "9º ANDAR": { "MANHA": [], "TARDE": [], "NOITE": [] },
     "10º ANDAR": { "MANHA": [], "TARDE": [], "NOITE": [] }
@@ -27,7 +25,6 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
     "10º ANDAR": true
   });
 
-  // Estado para os turnos (Andar-Turno como chave)
   const [turnosExpandidos, setTurnosExpandidos] = useState<Record<string, boolean>>({
     "9º ANDAR-MANHA": true, "9º ANDAR-TARDE": true, "9º ANDAR-NOITE": true,
     "10º ANDAR-MANHA": true, "10º ANDAR-TARDE": true, "10º ANDAR-NOITE": true
@@ -42,13 +39,11 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
     setTurnosExpandidos(prev => ({ ...prev, [chave]: !prev[chave] }));
   };
 
-  // Funcao para extrair numero da descricao da sala para ordenacao
   const extrairNumeroSala = (desc: string) => {
     const match = desc.match(/\d+/);
     return match ? parseInt(match[0], 10) : 0;
   };
 
-  // Agrupar salas por andar e turno
   agendamentos.forEach(a => {
     if (!a.sala || !a.sala.andar) return;
     const andarKey = a.sala.andar.includes("9") ? "9º ANDAR" : "10º ANDAR";
@@ -61,7 +56,6 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
     }
   });
 
-  // Ordenar as salas numericamente em cada turno
   Object.keys(agrupamento).forEach(andar => {
     Object.keys(agrupamento[andar]).forEach(turno => {
       agrupamento[andar][turno].sort((a, b) => extrairNumeroSala(a.descricao) - extrairNumeroSala(b.descricao));
@@ -132,7 +126,6 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
                     {Array.from({ length: diasNoMes }).map((_, dia) => {
                       const ags = encontrarAgendamentos(agendamentos, sala.descricao, ano, mes, dia + 1, turno);
 
-                      // Nova Distribuição: A,B=Top, C,D=Meio, E,F=Baixo
                       const agTopo = ags.find(a => ["A", "B"].includes(a.horario));
                       const agMeio = ags.find(a => ["C", "D"].includes(a.horario));
                       const agBaixo = ags.find(a => ["E", "F"].includes(a.horario));
@@ -148,7 +141,6 @@ export default function Calendario({ ano, mes, agendamentos, onAgendamentoHoverI
                                 onClick={() => onClickAgendamento(agTopo)}
                               >
                                 <span className="texto-truncado">({agTopo.horario}) {agTopo.descricao}</span>
-
                               </div>
                             )}
                           </div>

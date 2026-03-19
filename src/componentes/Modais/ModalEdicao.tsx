@@ -1,5 +1,7 @@
-import React, { useRef } from 'react';
-import { Agendamento, Sala } from '../../servicos/api';
+import React, { useRef, useState } from 'react';
+import { Agendamento, Sala } from '../../tipos';
+import './Base.css';
+import './ModalEdicao.css';
 
 interface ModalEdicaoProps {
   agendamento: Agendamento;
@@ -13,7 +15,7 @@ export default function ModalEdicao({ agendamento, salas, onFechar, onSalvar }: 
   const turnoRef = useRef<HTMLSelectElement>(null);
   const horarioRef = useRef<HTMLSelectElement>(null);
   const descricaoRef = useRef<HTMLTextAreaElement>(null);
-  const [salaBusca, setSalaBusca] = React.useState(agendamento.sala.descricao);
+  const [salaBusca, setSalaBusca] = useState(agendamento.sala.descricao);
 
   if (!agendamento) return null;
 
@@ -48,7 +50,6 @@ export default function ModalEdicao({ agendamento, salas, onFechar, onSalvar }: 
         </div>
         
         <div className="formulario-edicao">
-
           <div className="form-grupo">
             <label htmlFor="editSala">Sala (Digite o número)</label>
             <input
@@ -96,7 +97,6 @@ export default function ModalEdicao({ agendamento, salas, onFechar, onSalvar }: 
           
           <div className="form-grupo">
             <label htmlFor="editDescricao">Descrição ou Assunto Formativo</label>
-            {/*<input id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"/> */}
             <textarea className="textarea-editor" id="editDescricao" ref={descricaoRef} defaultValue={agendamento.descricao} placeholder="Ex: Aula Prática de Laboratório"></textarea>
           </div>
           

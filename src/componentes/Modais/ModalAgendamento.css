@@ -1,0 +1,68 @@
+.formulario-edicao {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 15px;
+}
+
+.form-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.textarea-editor {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #334155;
+  transition: border-color 0.2s;
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-grupo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.formulario-edicao input,
+.formulario-edicao select {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #334155;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formulario-edicao input:focus,
+.formulario-edicao select:focus {
+  outline: none;
+  border-color: var(--primaria);
+  box-shadow: 0 0 0 2px rgba(62, 178, 255, 0.2);
+}
+
+.formulario-edicao button {
+  background: var(--primaria);
+  color: white;
+  padding: 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.formulario-edicao button:hover {
+  background: #2563eb;
+}

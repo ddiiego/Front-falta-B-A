@@ -1,4 +1,4 @@
-import { Agendamento } from "../servicos/api";
+import { Agendamento } from "../tipos";
 
 export const nomesMes = [
   "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -20,7 +20,7 @@ export function encontrarAgendamentos(agendamentos: Agendamento[], salaDescricao
     if (!a.data) return false;
     const p = a.data.split("-");
     const anoAg = parseInt(p[0], 10);
-    const mesAg = parseInt(p[1], 10) - 1; // Mês no JS é 0-indexed
+    const mesAg = parseInt(p[1], 10) - 1;
     const diaAg = parseInt(p[2], 10);
     
     const baseMatch = salaDescricao === a.sala?.descricao &&

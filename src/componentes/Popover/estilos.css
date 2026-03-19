@@ -1,0 +1,158 @@
+.balao-flutuante {
+  position: fixed;
+  width: 380px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  opacity: 1;
+  border: 1px solid #e2e8f0;
+}
+
+.balao-cima {
+  transform: translateY(calc(-50% - 16px));
+  animation: surgimentoCima 0.1s ease-out forwards;
+}
+
+.balao-baixo {
+  transform: translateY(12px);
+  animation: surgimentoBaixo 0.1s ease-out forwards;
+}
+
+.balao-cabecalho {
+  background: var(--primaria);
+  color: white;
+  padding: 14px 18px;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+}
+
+.balao-fechar {
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.balao-corpo {
+  display: flex;
+  padding: 18px;
+}
+
+.balao-info {
+  flex: 1.2;
+  border-right: 1px solid #e2e8f0;
+  padding-right: 18px;
+  font-size: 13px;
+}
+
+.grupo-info {
+  margin-bottom: 14px;
+}
+
+.grupo-info label {
+  font-weight: 700;
+  color: #334155;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.grupo-info div {
+  color: #475569;
+}
+
+.balao-acoes {
+  flex: 1;
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+.abas {
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 14px;
+  display: flex;
+}
+
+.aba {
+  padding-bottom: 6px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.aba.ativa {
+  color: #0f172a;
+  border-bottom: 2px solid var(--primaria);
+  margin-bottom: -2px;
+  font-weight: 600;
+}
+
+.link-acao {
+  display: block;
+  text-align: left;
+  color: #3b82f6;
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.link-acao:hover {
+  text-decoration: underline;
+  color: #2563eb;
+}
+
+.texto-vermelho-500 {
+  color: #ef4444;
+}
+
+.texto-vermelho-500:hover {
+  color: #dc2626;
+}
+
+.seta-cima {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+}
+
+.seta-baixo {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--primaria);
+}
+
+@keyframes surgimentoCima {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-100% - 2px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(calc(-100% - 12px));
+  }
+}
+
+@keyframes surgimentoBaixo {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(12px);
+  }
+}

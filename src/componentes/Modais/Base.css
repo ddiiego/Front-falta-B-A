@@ -1,0 +1,71 @@
+.modal-fundo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+
+.modal-caixa {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-cabecalho {
+  background: var(--primaria);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.modal-acoes {
+  padding: 0 24px 24px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.botao-editar {
+  background: var(--primaria);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.botao-editar:hover {
+  background: #2563eb;
+}
+
+.botao-perigo {
+  background: white;
+  color: red;
+  border: none;
+  border: 1px solid #cbd5e1;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.botao-perigo:hover {
+  background: #dc2626;
+  color: white;
+  transition: background 0.1s;
+}

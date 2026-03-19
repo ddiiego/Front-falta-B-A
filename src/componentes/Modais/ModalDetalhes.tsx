@@ -1,7 +1,16 @@
 import React from 'react';
+import './Base.css';
 import './ModalDetalhes.css';
+import { Agendamento } from '../../tipos';
 
-export default function ModalDetalhes({ agendamento, onFechar, onEditar, onExcluir }) {
+interface ModalDetalhesProps {
+  agendamento: Agendamento;
+  onFechar: () => void;
+  onEditar: () => void;
+  onExcluir: () => void;
+}
+
+export default function ModalDetalhes({ agendamento, onFechar, onEditar, onExcluir }: ModalDetalhesProps) {
   if (!agendamento) return null;
 
   return (
@@ -23,7 +32,7 @@ export default function ModalDetalhes({ agendamento, onFechar, onEditar, onExclu
               <span className="bold-1">Horário</span> {agendamento.horario}<br /><br />
             </div>
 
-            <div className=''>
+            <div>
               <span className="bold-1">Sala:</span> {agendamento.sala.descricao}<br />
               <span className="bold-1">Andar:</span> {agendamento.sala.andar}<br />
               <span className="bold-1">Capacidade:</span> {agendamento.sala.capacidade}
