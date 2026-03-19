@@ -1,7 +1,6 @@
 .cabecalho-principal {
-  position: fixed;
-  top: 0;
-  left: 0;
+  /* Agora é parte do fluxo normal (flex-item), não mais fixo */
+  flex-shrink: 0;
   width: 100%;
   min-width: fit-content;
   z-index: 100;
@@ -11,8 +10,9 @@
   background: white;
   padding: 15px 30px;
   border: 1px solid #e0e0e0;
-  /*box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);*/
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .cabecalho-principal h2 {

@@ -1,12 +1,21 @@
 .container-aplicativo {
-  padding: calc(var(--altura-cabecalho) + 33px) 10px 10px 10px;
-  min-width: 100%;
-  width: fit-content;
-  box-sizing: border-box;
-  margin: 0;
+  /* Flex coluna: header + area de scroll */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  /* O scroll acontece apenas no calendario-scroll-container */
+  box-sizing: border-box;
+  margin-left: 10px;
+}
+
+/* Container de scroll dedicado ao calendario - preenche todo o espaco restante */
+.calendario-scroll-container {
+  flex: 1;
+  /* ocupa todo o espaco apos o header */
+  overflow: auto;
+  /* scroll horizontal E vertical aqui dentro */
+  background: #f4f6f8;
 }
 
 /* Popover Flutuante */

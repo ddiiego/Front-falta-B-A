@@ -9,12 +9,17 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
   background: #f4f6f8;
   color: #333;
+}
+
+#root {
+  height: 100%;
 }
 
 button {

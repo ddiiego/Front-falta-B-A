@@ -242,14 +242,16 @@ export default function App() {
     <div className="container-aplicativo">
       <Cabecalho mes={mes} ano={ano} onMudarMes={mudarMes} onIrParaMes={irParaMes} onAbrirAgendar={handleAbrirAgendar} />
 
-      <Calendario
-        ano={ano}
-        mes={mes}
-        agendamentos={agendamentos}
-        onAgendamentoHoverIn={handleAgendamentoHoverIn}
-        onAgendamentoHoverOut={handleAgendamentoHoverOut}
-        onClickAgendamento={abrirModalDetalhes}
-      />
+      <div className="calendario-scroll-container">
+        <Calendario
+          ano={ano}
+          mes={mes}
+          agendamentos={agendamentos}
+          onAgendamentoHoverIn={handleAgendamentoHoverIn}
+          onAgendamentoHoverOut={handleAgendamentoHoverOut}
+          onClickAgendamento={abrirModalDetalhes}
+        />
+      </div>
 
       {/* NOVO POPOVER FLUTUANTE */}
       {agendamentoBalao && (

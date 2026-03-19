@@ -11,7 +11,8 @@
 
 .celula {
   border-right: 1px solid #f0f0f0;
-  min-height: 55px; /* Voltando ao tamanho original */
+  min-height: 55px;
+  /* Voltando ao tamanho original */
   display: flex;
   flex-direction: column;
   justify-content: stretch;
@@ -29,7 +30,8 @@
 .slot-agendamento {
   flex: 1;
   width: 100%;
-  min-height: 15px; /* Extremmamente compacto */
+  min-height: 15px;
+  /* Extremmamente compacto */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +40,7 @@
 
 .celula-cabecalho {
   position: sticky;
-  top: var(--altura-cabecalho);
+  top: 0;
   background: #f8f9fa;
   border-bottom: 2px solid #e2e8f0;
   padding: 12px 0;
@@ -93,7 +95,7 @@
   color: #334155;
   border-bottom: 1px solid #e2e8f0;
   position: sticky;
-  top: calc(var(--altura-cabecalho) + var(--altura-celula-cabecalho)); /* header + day header */
+  top: var(--altura-celula-cabecalho);
   z-index: 15;
 }
 
@@ -140,10 +142,12 @@
 
 .tarja-agendamento {
   width: 98%;
-  height: 14px; /* Super compacta */
+  height: 14px;
+  /* Super compacta */
   border-radius: 2px;
   color: white;
-  font-size: 9px; /* Fonte menor para caber */
+  font-size: 9px;
+  /* Fonte menor para caber */
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -165,12 +169,32 @@
   z-index: 8;
 }
 
-.fundo-azul-escuro { background-color: #1e3a8a; } /* Dark Blue (A,B) */
-.fundo-azul-claro { background-color: #3eb2ff; } /* Light Blue (C,D) */
-.fundo-amba { background-color: #f59e0b; }      /* Amber (E,F) */
-.fundo-azul-400 { background-color: #3eb2ff; }
-.fundo-verde-400 { background-color: #10b981; }
-.fundo-roxo-400 { background-color: #8b5cf6; }
+.fundo-azul-escuro {
+  background-color: #1e3a8a;
+}
+
+/* Dark Blue (A,B) */
+.fundo-azul-claro {
+  background-color: #3eb2ff;
+}
+
+/* Light Blue (C,D) */
+.fundo-amba {
+  background-color: #f59e0b;
+}
+
+/* Amber (E,F) */
+.fundo-azul-400 {
+  background-color: #3eb2ff;
+}
+
+.fundo-verde-400 {
+  background-color: #10b981;
+}
+
+.fundo-roxo-400 {
+  background-color: #8b5cf6;
+}
 
 .texto-truncado {
   white-space: nowrap;
